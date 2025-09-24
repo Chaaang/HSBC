@@ -64,40 +64,6 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  // Future<void> _saveSignature() async {
-  //   final signCubit = context.read<SignCubit>();
-  //   final authCubit = context.read<AuthCubit>();
-  //   final userId = authCubit.currentUser;
-  //   final signId = signCubit.currentSignId;
-  //   if (userId == null) return;
-
-  //   try {
-  //     // Get painter widget size
-  //     final renderBox =
-  //         painterKey.currentContext!.findRenderObject() as RenderBox;
-  //     final size = renderBox.size;
-
-  //     // Render the signature to an image
-  //     final uiImage = await _controller.renderImage(size);
-
-  //     // Convert ui.Image to Uint8List (PNG)
-  //     final byteData = await uiImage.toByteData(format: ui.ImageByteFormat.png);
-  //     final bytes = byteData!.buffer.asUint8List();
-
-  //     // ✅ Pass raw bytes instead of base64
-  //     await signCubit.saveSignatureBase64(bytes, userId, signId!);
-
-  //     if (!mounted) return;
-  //     showAppSnackBar(
-  //       context,
-  //       'Upload signature complete!',
-  //       type: SnackBarType.success,
-  //     );
-  //   } catch (e) {
-  //     showAppSnackBar(context, 'Error Uploading: $e', type: SnackBarType.error);
-  //   }
-  // }
-
   Future<void> _saveSignature() async {
     final signCubit = context.read<SignCubit>();
     final authCubit = context.read<AuthCubit>();
@@ -131,6 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
         'Upload signature complete!',
         type: SnackBarType.success,
       );
+      _clearCanvas();
     } catch (e) {
       showAppSnackBar(context, 'Error Uploading: $e', type: SnackBarType.error);
     }
