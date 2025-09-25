@@ -1,5 +1,3 @@
-import 'package:hsbc/features/home/domain/entities/sign_model.dart';
-
 import '../../../event/domain/entities/event.dart';
 
 abstract class SignState {}

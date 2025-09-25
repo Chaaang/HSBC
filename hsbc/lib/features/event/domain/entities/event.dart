@@ -3,16 +3,18 @@ class Event {
   String title1;
   String title2;
   String signsBanner;
-  String signsBg;
-  String sbanner;
+  String signsBackground;
+  String signsShowBg;
+  String listRefreshSecods;
 
   Event({
     required this.id,
     required this.title1,
     required this.title2,
     required this.signsBanner,
-    required this.signsBg,
-    required this.sbanner,
+    required this.signsBackground,
+    required this.signsShowBg,
+    required this.listRefreshSecods,
   });
 
   factory Event.fromJson(Map<String, dynamic> json) {
@@ -20,9 +22,10 @@ class Event {
       id: json['id'] ?? '',
       title1: json['title_1'] ?? '',
       title2: json['title_2'] ?? '',
-      sbanner: json['signs_showbg'] ?? '',
       signsBanner: json['signs_banner'] ?? '',
-      signsBg: json['signs_background'] ?? '',
+      signsBackground: json['signs_background'] ?? '',
+      signsShowBg: json['signs_showbg'] ?? '',
+      listRefreshSecods: json['lists_refresh_seconds'] ?? '',
     );
   }
 }
