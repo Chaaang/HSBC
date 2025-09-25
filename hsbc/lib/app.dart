@@ -10,7 +10,6 @@ import 'package:hsbc/features/event/presentation/screens/event_screen.dart';
 import 'package:hsbc/features/shared/components/loading_screen.dart';
 import 'package:hsbc/features/home/data/api_home_repo.dart';
 import 'package:hsbc/features/home/presentation/cubit/sign_cubit.dart';
-import 'package:hsbc/features/home/presentation/screens/home_screen.dart';
 import 'package:hsbc/features/shared/theme.dart/light_mode.dart';
 
 class MyApp extends StatelessWidget {
