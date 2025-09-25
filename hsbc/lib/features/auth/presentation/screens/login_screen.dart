@@ -58,14 +58,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // logo (always in the same spot)
-                    // Image.asset(
-                    //   'assets/bg.png',
-                    //   width: MediaQuery.of(context).size.width * 0.7,
-                    //   fit: BoxFit.contain,
-                    // ),
-
-                    // spacer that only appears when form is shown
                     if (showForm) ...[
                       Container(
                         width: 350, // fixed width for the card
