@@ -6,8 +6,9 @@ class SignatureInitialState extends SignatureState {}
 
 class SignatureLoadedState extends SignatureState {
   List<SignatureUrl> signature;
+  String background;
 
-  SignatureLoadedState(this.signature);
+  SignatureLoadedState(this.signature, this.background);
 }
 
 class SignatureLoadingState extends SignatureState {}

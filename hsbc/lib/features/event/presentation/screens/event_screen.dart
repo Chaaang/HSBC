@@ -6,6 +6,7 @@ import 'package:hsbc/features/event/presentation/cubit/event_state.dart';
 import 'package:hsbc/features/home/presentation/screens/home_screen.dart';
 import 'package:hsbc/features/shared/components/loading_screen.dart';
 import 'package:hsbc/features/shared/components/snack_bar.dart';
+import 'package:hsbc/features/signatures/presentation/screens/signature_screen.dart';
 
 import '../../../auth/presentation/cubit/auth_cubit.dart';
 
@@ -40,7 +41,8 @@ class _EventScreenState extends State<EventScreen> {
         child: BlocBuilder<EventCubit, EventState>(
           builder: (context, state) {
             if (state is EventReady) {
-              return HomeScreen();
+              //return HomeScreen();
+              return SignatureScreen();
             }
             if (state is EventLoading) {
               return LoadingScreen();

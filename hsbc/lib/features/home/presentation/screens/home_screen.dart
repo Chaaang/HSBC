@@ -191,7 +191,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: NetworkImage(
-                          'https://sign.onecodephoto.com/${item.signsBg}',
+                          'https://sign.onecodephoto.com/${item.signsBackground}',
                         ),
                         fit: BoxFit.contain,
                       ),

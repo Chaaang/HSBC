@@ -11,11 +11,14 @@ import 'package:hsbc/features/shared/components/loading_screen.dart';
 import 'package:hsbc/features/home/data/api_home_repo.dart';
 import 'package:hsbc/features/home/presentation/cubit/sign_cubit.dart';
 import 'package:hsbc/features/shared/theme.dart/light_mode.dart';
+import 'package:hsbc/features/signatures/presentation/cubit/signature_cubit.dart';
+import 'features/signatures/data/api_signature_repo.dart';
 
 class MyApp extends StatelessWidget {
   final _authCubit = ApiAuthRepo();
   final _signCubit = ApiHomeRepo();
   final _eventCubit = ApiEventRepo();
+  final _signatureCubit = ApiSignatureRepo();
   MyApp({super.key});
 
   // This widget is the root of your application.
@@ -30,6 +33,9 @@ class MyApp extends StatelessWidget {
 
         BlocProvider(create: (context) => EventCubit(eventRepo: _eventCubit)),
         BlocProvider(create: (context) => SignCubit(signRepo: _signCubit)),
+        BlocProvider(
+          create: (context) => SignatureCubit(signatureRepo: _signatureCubit),
+        ),
       ],
       child: MaterialApp(
         theme: lightMode,
@@ -44,7 +50,6 @@ class MyApp extends StatelessWidget {
             }
 
             if (authstate is Authenticated) {
-              //return HomeScreen();
               return EventScreen();
             }
 

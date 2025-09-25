@@ -17,7 +17,7 @@ class ApiSignatureRepo implements SignatureRepo {
           'key': 'fsop25#09dt',
           'table_name': 'signs',
           'action': 'images',
-          'members_id': signId,
+          'signs_id': signId,
         },
       );
 
