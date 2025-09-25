@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_painter_v2/flutter_painter.dart';
 import 'package:hsbc/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:hsbc/features/event/presentation/cubit/event_cubit.dart';
 import 'package:hsbc/features/home/presentation/components/my_floating_action_button.dart';
 import 'package:hsbc/features/home/presentation/cubit/sign_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Color _selectedColor = Colors.black;
   final GlobalKey painterKey = GlobalKey();
 
-  bool _showBox = false;
+  bool _showBox = true;
   final List<Color> _colors = [
     Colors.black,
     Color(0xFF724236),
@@ -56,12 +57,17 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void getSignModel() {
+    final eventCubit = context.read<EventCubit>();
     final signCubit = context.read<SignCubit>();
-    final authCubit = context.read<AuthCubit>();
-    final uuid = authCubit.currentUser;
-    if (uuid != null) {
-      signCubit.getSignItem(uuid);
-    }
+    var currentEvent = eventCubit.currentEvent;
+
+    signCubit.getCurrentEvent(currentEvent!);
+    // final signCubit = context.read<SignCubit>();
+    // final authCubit = context.read<AuthCubit>();
+    // final uuid = authCubit.currentUser;
+    // if (uuid != null) {
+    //   signCubit.getSignItem(uuid);
+    // }
   }
 
   Future<void> _saveSignature() async {

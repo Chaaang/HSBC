@@ -4,6 +4,9 @@ import 'package:hsbc/features/auth/data/api_auth_repo.dart';
 import 'package:hsbc/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:hsbc/features/auth/presentation/cubit/auth_state.dart';
 import 'package:hsbc/features/auth/presentation/screens/login_screen.dart';
+import 'package:hsbc/features/event/data/api_event_repo.dart';
+import 'package:hsbc/features/event/presentation/cubit/event_cubit.dart';
+import 'package:hsbc/features/event/presentation/screens/event_screen.dart';
 import 'package:hsbc/features/shared/components/loading_screen.dart';
 import 'package:hsbc/features/home/data/api_home_repo.dart';
 import 'package:hsbc/features/home/presentation/cubit/sign_cubit.dart';
@@ -13,6 +16,7 @@ import 'package:hsbc/features/shared/theme.dart/light_mode.dart';
 class MyApp extends StatelessWidget {
   final _authCubit = ApiAuthRepo();
   final _signCubit = ApiHomeRepo();
+  final _eventCubit = ApiEventRepo();
   MyApp({super.key});
 
   // This widget is the root of your application.
@@ -25,6 +29,7 @@ class MyApp extends StatelessWidget {
           create: (context) => AuthCubit(authRepo: _authCubit)..checkAuth(),
         ),
 
+        BlocProvider(create: (context) => EventCubit(eventRepo: _eventCubit)),
         BlocProvider(create: (context) => SignCubit(signRepo: _signCubit)),
       ],
       child: MaterialApp(
@@ -40,7 +45,8 @@ class MyApp extends StatelessWidget {
             }
 
             if (authstate is Authenticated) {
-              return HomeScreen();
+              //return HomeScreen();
+              return EventScreen();
             }
 
             return Center(child: Text('Error'));

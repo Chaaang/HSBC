@@ -1,5 +1,7 @@
 import 'package:hsbc/features/home/domain/entities/sign_model.dart';
 
+import '../../../event/domain/entities/event.dart';
+
 abstract class SignState {}
 
 class SignInitial extends SignState {}
@@ -7,7 +9,7 @@ class SignInitial extends SignState {}
 class SignLoading extends SignState {}
 
 class SignLoaded extends SignState {
-  SignModel? item;
+  Event? item;
 
   SignLoaded(this.item);
 }
