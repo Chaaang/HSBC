@@ -27,7 +27,6 @@ class _SignatureScreenState extends State<SignatureScreen> {
     _timer = Timer.periodic(Duration(seconds: time), (_) {
       _refreshSignatures();
     });
-    print('THIS IS TIME $time');
   }
 
   void loadSignatures() {

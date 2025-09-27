@@ -172,24 +172,21 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Scaffold(
         body: BlocConsumer<SignCubit, SignState>(
           builder: (context, state) {
-            print(state);
             if (state is SignLoading) {
               return LoadingScreen();
             }
             if (state is SignBoxHide) {
               final item = state.item!;
               return item.signsBackground2.isNotEmpty
-                  ? Container(
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(
-                          'https://sign.onecodephoto.com/${item.signsBackground}',
-                        ),
-                        fit: BoxFit.contain,
-                      ),
+                  ? SizedBox.expand(
+                    child: Image.network(
+                      'https://sign.onecodephoto.com/${item.signsBackground2}',
+                      fit:
+                          BoxFit
+                              .cover, // try BoxFit.fill if you want it stretched
                     ),
                   )
-                  : Container();
+                  : const Center(child: Text('NO background'));
             }
             if (state is SignLoaded) {
               final item = state.item!;
@@ -200,9 +197,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: NetworkImage(
-                          'https://sign.onecodephoto.com/${item.signsBackground}',
+                          'https://sign.onecodephoto.com/${item.signsBackground2}',
                         ),
-                        fit: BoxFit.contain,
+                        fit: BoxFit.cover,
                       ),
                     ),
                   ),
@@ -214,16 +211,19 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: 600, // logical pixels
                         height: 300,
                         decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(color: Colors.black, width: 3),
+                          color: Color(0xFFF0F0F0), //Colors.white,
+                          border: Border.all(color: Colors.black, width: 1),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black26,
-                              blurRadius: 8,
+                              color: Colors.black.withOpacity(0.6),
+                              blurRadius: 16,
+
+                              spreadRadius: 4, // thicker shadow
+
                               offset: Offset(2, 2),
                             ),
                           ],
-                          borderRadius: BorderRadius.circular(16),
+                          borderRadius: BorderRadius.circular(8),
                         ),
                         child: FlutterPainter(
                           key: painterKey,

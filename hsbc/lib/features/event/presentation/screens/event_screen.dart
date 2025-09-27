@@ -6,7 +6,6 @@ import 'package:hsbc/features/event/presentation/cubit/event_state.dart';
 import 'package:hsbc/features/home/presentation/screens/home_screen.dart';
 import 'package:hsbc/features/shared/components/loading_screen.dart';
 import 'package:hsbc/features/shared/components/snack_bar.dart';
-import 'package:hsbc/features/signatures/presentation/screens/signature_screen.dart';
 
 import '../../../auth/presentation/cubit/auth_cubit.dart';
 
