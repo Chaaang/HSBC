@@ -18,6 +18,8 @@ class SignError extends SignState {
   SignError(this.error);
 }
 
-class SignSave extends SignState {}
+class SignBoxHide extends SignState {
+  Event? item;
 
-class SignSaveSuccess extends SignState {}
+  SignBoxHide(this.item);
+}

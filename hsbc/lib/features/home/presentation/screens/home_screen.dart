@@ -25,7 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Color _selectedColor = Colors.black;
   final GlobalKey painterKey = GlobalKey();
 
-  bool _showBox = true;
+  final bool _showBox = true;
   final List<Color> _colors = [
     Colors.black,
     Color(0xFF724236),
@@ -62,12 +62,6 @@ class _HomeScreenState extends State<HomeScreen> {
     var currentEvent = eventCubit.currentEvent;
 
     signCubit.getCurrentEvent(currentEvent!);
-    // final signCubit = context.read<SignCubit>();
-    // final authCubit = context.read<AuthCubit>();
-    // final uuid = authCubit.currentUser;
-    // if (uuid != null) {
-    //   signCubit.getSignItem(uuid);
-    // }
   }
 
   Future<void> _saveSignature() async {
@@ -171,16 +165,31 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        setState(() {
-          _showBox = !_showBox; // trigger the signature box
-        });
+      onTap: () async {
+        final signCubit = context.read<SignCubit>();
+        await signCubit.hideSignBox();
       },
       child: Scaffold(
         body: BlocConsumer<SignCubit, SignState>(
           builder: (context, state) {
+            print(state);
             if (state is SignLoading) {
               return LoadingScreen();
+            }
+            if (state is SignBoxHide) {
+              final item = state.item!;
+              return item.signsBackground2.isNotEmpty
+                  ? Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          'https://sign.onecodephoto.com/${item.signsBackground}',
+                        ),
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  )
+                  : Container();
             }
             if (state is SignLoaded) {
               final item = state.item!;
@@ -214,6 +223,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               offset: Offset(2, 2),
                             ),
                           ],
+                          borderRadius: BorderRadius.circular(16),
                         ),
                         child: FlutterPainter(
                           key: painterKey,
@@ -229,53 +239,61 @@ class _HomeScreenState extends State<HomeScreen> {
           },
           listener: (context, state) {},
         ),
-        floatingActionButton: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SizedBox(
-              height: 72,
-              width: 72,
-              child: MyFloatingActionButton(
-                herotag: 'upload',
-                toolTip: 'Upload',
-                onTap: _saveSignature,
-                widget: const Icon(Icons.upload, size: 40),
-              ),
-            ),
-            const SizedBox(height: 12),
-            SizedBox(
-              height: 72,
-              width: 72,
-              child: MyFloatingActionButton(
-                herotag: 'color',
-                toolTip: 'Change Pen Color',
-                onTap: _showColorPicker,
-                widget: const Icon(Icons.palette, size: 40),
-              ),
-            ),
-            const SizedBox(height: 12),
-            SizedBox(
-              height: 72,
-              width: 72,
-              child: MyFloatingActionButton(
-                herotag: 'clear',
-                toolTip: 'Clear',
-                onTap: _clearCanvas,
-                widget: const Icon(Icons.clear, size: 40),
-              ),
-            ),
-            const SizedBox(height: 12),
-            SizedBox(
-              height: 72,
-              width: 72,
-              child: MyFloatingActionButton(
-                herotag: 'logout',
-                toolTip: 'Logout',
-                onTap: _logout,
-                widget: const Icon(Icons.logout, size: 40),
-              ),
-            ),
-          ],
+        floatingActionButton: BlocBuilder<SignCubit, SignState>(
+          builder: (context, state) {
+            if (state is SignLoaded) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  SizedBox(
+                    height: 72,
+                    width: 72,
+                    child: MyFloatingActionButton(
+                      herotag: 'upload',
+                      toolTip: 'Upload',
+                      onTap: _saveSignature,
+                      widget: const Icon(Icons.upload, size: 40),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  SizedBox(
+                    height: 72,
+                    width: 72,
+                    child: MyFloatingActionButton(
+                      herotag: 'color',
+                      toolTip: 'Change Pen Color',
+                      onTap: _showColorPicker,
+                      widget: const Icon(Icons.palette, size: 40),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  SizedBox(
+                    height: 72,
+                    width: 72,
+                    child: MyFloatingActionButton(
+                      herotag: 'clear',
+                      toolTip: 'Clear',
+                      onTap: _clearCanvas,
+                      widget: const Icon(Icons.clear, size: 40),
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  SizedBox(
+                    height: 72,
+                    width: 72,
+                    child: MyFloatingActionButton(
+                      herotag: 'logout',
+                      toolTip: 'Logout',
+                      onTap: _logout,
+                      widget: const Icon(Icons.logout, size: 40),
+                    ),
+                  ),
+                ],
+              );
+            }
+
+            return SizedBox.shrink();
+          },
         ),
       ),
     );

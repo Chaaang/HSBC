@@ -41,8 +41,8 @@ class _EventScreenState extends State<EventScreen> {
         child: BlocBuilder<EventCubit, EventState>(
           builder: (context, state) {
             if (state is EventReady) {
-              //return HomeScreen();
-              return SignatureScreen();
+              return HomeScreen();
+              //return SignatureScreen();
             }
             if (state is EventLoading) {
               return LoadingScreen();
