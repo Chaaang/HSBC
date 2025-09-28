@@ -25,7 +25,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Color _selectedColor = Colors.black;
   final GlobalKey painterKey = GlobalKey();
 
-  final bool _showBox = true;
   final List<Color> _colors = [
     Colors.black,
     Color(0xFF724236),
@@ -69,6 +68,9 @@ class _HomeScreenState extends State<HomeScreen> {
     final authCubit = context.read<AuthCubit>();
     final userId = authCubit.currentUser;
     final signId = signCubit.currentSignId;
+
+    //back to bg after upload
+
     if (userId == null) return;
 
     // ✅ Prevent saving if nothing is drawn
@@ -180,7 +182,7 @@ class _HomeScreenState extends State<HomeScreen> {
               return item.signsBackground2.isNotEmpty
                   ? SizedBox.expand(
                     child: Image.network(
-                      'https://sign.onecodephoto.com/${item.signsBackground2}',
+                      'https://sign.onecodephoto.com/${item.signsBackground}',
                       fit:
                           BoxFit
                               .cover, // try BoxFit.fill if you want it stretched
@@ -205,32 +207,32 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
 
                   // Show signature box in center when tapped
-                  if (_showBox)
-                    Center(
-                      child: Container(
-                        width: 600, // logical pixels
-                        height: 300,
-                        decoration: BoxDecoration(
-                          color: Color(0xFFF0F0F0), //Colors.white,
-                          border: Border.all(color: Colors.black, width: 1),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.6),
-                              blurRadius: 16,
+                  // if (_showBox)
+                  Center(
+                    child: Container(
+                      width: 600, // logical pixels
+                      height: 300,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFF0F0F0), //Colors.white,
+                        border: Border.all(color: Colors.black, width: 1),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.6),
+                            blurRadius: 16,
 
-                              spreadRadius: 4, // thicker shadow
+                            spreadRadius: 4, // thicker shadow
 
-                              offset: Offset(2, 2),
-                            ),
-                          ],
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: FlutterPainter(
-                          key: painterKey,
-                          controller: _controller,
-                        ),
+                            offset: Offset(2, 2),
+                          ),
+                        ],
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: FlutterPainter(
+                        key: painterKey,
+                        controller: _controller,
                       ),
                     ),
+                  ),
                 ],
               );
             }

@@ -19,7 +19,8 @@ class SignCubit extends Cubit<SignState> {
     emit(SignLoading());
     try {
       if (_currentEvent != null) {
-        emit(SignLoaded(_currentEvent));
+        //emit(SignLoaded(_currentEvent));
+        emit(SignBoxHide(_currentEvent));
       }
     } catch (e) {
       emit(SignError(e.toString()));
@@ -36,7 +37,8 @@ class SignCubit extends Cubit<SignState> {
 
       await signRepo.uploadSign(file, userId, signId);
 
-      await getCurrentEvent(_currentEvent!);
+      //await getCurrentEvent(_currentEvent!);
+      emit(SignBoxHide(_currentEvent));
     } catch (e) {
       emit(SignError(e.toString()));
     }
