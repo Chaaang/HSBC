@@ -164,6 +164,38 @@ class _HomeScreenState extends State<HomeScreen> {
     authCubit.logout();
   }
 
+  // Example widget where you want the colors to be visible
+  Widget _buildColorPalette() {
+    return Wrap(
+      spacing: 12,
+      runSpacing: 12,
+      children: List.generate(_colors.length, (index) {
+        final color = _colors[index];
+        return GestureDetector(
+          onTap: () {
+            setState(() {
+              _selectedColor = color;
+              _controller.freeStyleSettings = _controller.freeStyleSettings
+                  .copyWith(color: color);
+            });
+          },
+          child: Container(
+            width: 55,
+            height: 55,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: color,
+              border: Border.all(
+                color: Colors.black,
+                width: _selectedColor == color ? 3 : 1,
+              ),
+            ),
+          ),
+        );
+      }),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -233,6 +265,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: _buildColorPalette(), // your Wrap of colors
+                    ),
+                  ),
                 ],
               );
             }
@@ -257,17 +296,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       widget: const Icon(Icons.upload, size: 40),
                     ),
                   ),
-                  const SizedBox(height: 12),
-                  SizedBox(
-                    height: 72,
-                    width: 72,
-                    child: MyFloatingActionButton(
-                      herotag: 'color',
-                      toolTip: 'Change Pen Color',
-                      onTap: _showColorPicker,
-                      widget: const Icon(Icons.palette, size: 40),
-                    ),
-                  ),
+                  // const SizedBox(height: 12),
+                  // SizedBox(
+                  //   height: 72,
+                  //   width: 72,
+                  //   child: MyFloatingActionButton(
+                  //     herotag: 'color',
+                  //     toolTip: 'Change Pen Color',
+                  //     onTap: _showColorPicker,
+                  //     widget: const Icon(Icons.palette, size: 40),
+                  //   ),
+                  // ),
                   const SizedBox(height: 12),
                   SizedBox(
                     height: 72,
