@@ -25,24 +25,62 @@ void showAppSnackBar(
       break;
   }
 
-  final snackBar = SnackBar(
-    duration: const Duration(seconds: 3),
-    backgroundColor: backgroundColor,
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-    content: Row(
-      children: [
-        Icon(icon, color: Colors.white, size: 24),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Text(
-            message,
-            style: const TextStyle(color: Colors.white, fontSize: 24),
+  // Remove any existing overlay snackbar
+  OverlayState overlayState = Overlay.of(context);
+  OverlayEntry? overlayEntry;
+
+  overlayEntry = OverlayEntry(
+    builder:
+        (context) => Positioned(
+          top: MediaQuery.of(context).padding.top + 16,
+          left: 16,
+          right: 16,
+          child: Material(
+            color: Colors.transparent,
+            child: AnimatedSlide(
+              duration: const Duration(milliseconds: 250),
+              offset: const Offset(0, 0),
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
+                decoration: BoxDecoration(
+                  color: backgroundColor,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.25),
+                      blurRadius: 10,
+                      offset: const Offset(0, 4),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    Icon(icon, color: Colors.white),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        message,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
         ),
-      ],
-    ),
   );
 
-  ScaffoldMessenger.of(context).clearSnackBars();
-  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  overlayState.insert(overlayEntry);
+
+  // Remove snackbar after 3 seconds
+  Future.delayed(const Duration(milliseconds: 1500)).then((_) {
+    overlayEntry?.remove();
+  });
 }

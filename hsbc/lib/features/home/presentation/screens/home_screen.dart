@@ -109,55 +109,55 @@ class _HomeScreenState extends State<HomeScreen> {
     _controller.clearDrawables();
   }
 
-  void _showColorPicker() {
-    showModalBottomSheet(
-      context: context,
-      builder: (_) {
-        return StatefulBuilder(
-          builder:
-              (context, setModalState) => Container(
-                padding: const EdgeInsets.all(16),
-                child: Wrap(
-                  spacing: 12,
-                  runSpacing: 12,
-                  children: List.generate(_colors.length, (index) {
-                    final color = _colors[index];
-                    return GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _selectedColor = color;
-                          _controller.freeStyleSettings = _controller
-                              .freeStyleSettings
-                              .copyWith(color: color);
-                        });
-                        Navigator.pop(context);
-                      },
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            width: 55,
-                            height: 55,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: color,
-                              border: Border.all(
-                                color: Colors.black,
-                                width: _selectedColor == color ? 3 : 1,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 4),
-                        ],
-                      ),
-                    );
-                  }),
-                ),
-              ),
-        );
-      },
-    );
-  }
+  // void _showColorPicker() {
+  //   showModalBottomSheet(
+  //     context: context,
+  //     builder: (_) {
+  //       return StatefulBuilder(
+  //         builder:
+  //             (context, setModalState) => Container(
+  //               padding: const EdgeInsets.all(16),
+  //               child: Wrap(
+  //                 spacing: 12,
+  //                 runSpacing: 12,
+  //                 children: List.generate(_colors.length, (index) {
+  //                   final color = _colors[index];
+  //                   return GestureDetector(
+  //                     onTap: () {
+  //                       setState(() {
+  //                         _selectedColor = color;
+  //                         _controller.freeStyleSettings = _controller
+  //                             .freeStyleSettings
+  //                             .copyWith(color: color);
+  //                       });
+  //                       Navigator.pop(context);
+  //                     },
+  //                     child: Column(
+  //                       mainAxisSize: MainAxisSize.min,
+  //                       children: [
+  //                         Container(
+  //                           width: 55,
+  //                           height: 55,
+  //                           decoration: BoxDecoration(
+  //                             shape: BoxShape.circle,
+  //                             color: color,
+  //                             border: Border.all(
+  //                               color: Colors.black,
+  //                               width: _selectedColor == color ? 3 : 1,
+  //                             ),
+  //                           ),
+  //                         ),
+  //                         const SizedBox(height: 4),
+  //                       ],
+  //                     ),
+  //                   );
+  //                 }),
+  //               ),
+  //             ),
+  //       );
+  //     },
+  //   );
+  // }
 
   void _logout() {
     final authCubit = context.read<AuthCubit>();
