@@ -171,6 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
       runSpacing: 12,
       children: List.generate(_colors.length, (index) {
         final color = _colors[index];
+
         return GestureDetector(
           onTap: () {
             setState(() {
@@ -186,7 +187,7 @@ class _HomeScreenState extends State<HomeScreen> {
               shape: BoxShape.circle,
               color: color,
               border: Border.all(
-                color: Colors.black,
+                color: _selectedColor == color ? Colors.white : Colors.black,
                 width: _selectedColor == color ? 3 : 1,
               ),
             ),
